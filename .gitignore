@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+chess-env/
+webapp/build/version.txt
+webapp/build/web-cache/
+webapp/build/web/.wrangler/

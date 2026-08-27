@@ -1,0 +1,23 @@
+[
+  {
+    "fen": "6k1/5ppp/8/8/8/8/8/R6K w - - 0 1",
+    "solution": [
+      "a1a8"
+    ],
+    "description": "Mat en 1 — la tour livre le mat sur la 8e rangée"
+  },
+  {
+    "fen": "r6k/8/8/8/8/8/5PPP/6K1 b - - 0 1",
+    "solution": [
+      "a8a1"
+    ],
+    "description": "Mat en 1 — la tour noire livre le mat sur la 1re rangée"
+  },
+  {
+    "fen": "6rk/6pp/7N/8/8/8/8/K7 w - - 0 1",
+    "solution": [
+      "h6f7"
+    ],
+    "description": "Mat étouffé en 1 — le cavalier livre le mat"
+  }
+]
