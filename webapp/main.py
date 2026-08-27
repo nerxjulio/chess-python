@@ -1287,6 +1287,11 @@ class Renderer:
         # silently substitutes its own default font — so a try/except fallback loop around it can
         # never actually detect a miss. match_font() is the only reliable way to check a family is
         # really installed (and, critically, whether it covers the chess glyph block U+2654-265F).
+        #
+        # Under pygbag/emscripten there is no real system font directory, so match_font() never
+        # finds FreeSerif/Noto Symbols there and the pieces render as tofu boxes. We ship
+        # FreeSerif.ttf alongside the script so the exact same glyphs load on desktop and web.
+        bundled_sym=os.path.join(os.path.dirname(os.path.abspath(__file__)),'assets','fonts','FreeSerif.ttf')
         def load(names,size,bold=False):
             for n in names:
                 path=pygame.font.match_font(n,bold=bold)
@@ -1298,7 +1303,12 @@ class Renderer:
         sym_names=['FreeSerif','DejaVu Sans','Noto Sans Symbols2','Segoe UI Symbol','Symbola']
         self.fL=load(text_names,26,True); self.fM=load(text_names,17,True); self.fS=load(text_names,13)
         self.fXS=load(text_names,11)
-        self.fSym=load(sym_names,SQ-6); self.fSymB=load(sym_names,SQ); self.fSymS=load(sym_names,SQ-18)
+        try:
+            self.fSym=pygame.font.Font(bundled_sym,SQ-6)
+            self.fSymB=pygame.font.Font(bundled_sym,SQ)
+            self.fSymS=pygame.font.Font(bundled_sym,SQ-18)
+        except Exception:
+            self.fSym=load(sym_names,SQ-6); self.fSymB=load(sym_names,SQ); self.fSymS=load(sym_names,SQ-18)
 
     def sq_to_px(self,r,c,flip):
         dr=7-r if flip else r; dc=7-c if flip else c
